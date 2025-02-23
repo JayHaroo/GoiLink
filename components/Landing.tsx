@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, ImageBackground , Image , TouchableHighlight, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
+import { useState } from 'react'
 
 export default function Landing(){
      

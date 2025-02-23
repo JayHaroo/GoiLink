@@ -34,7 +34,7 @@ export default function Form() {
     ]), []);
     
 
-  const [selectedId, setSelectedId] = useState<string | undefined>();
+  const [selectedId, setSelectedId] = useState<string | undefined>('1');
 
   const [isLogin, setIsLogin] = useState(false); // Corrected state declaration
   const navigation = useNavigation();
@@ -90,13 +90,13 @@ export default function Form() {
 
         <Pressable
          style={{ 
-            backgroundColor: '#30E650',
+            backgroundColor: 'green',
             width: 100,
             alignItems: 'center',
             marginTop: 50,
             borderRadius: 15
          }}>
-            <Text style={{ padding: 10}}>Process!</Text>
+            <Text style={{ padding: 10, color:'white'}}>Process!</Text>
          </Pressable>
 
       </View>
@@ -117,6 +117,6 @@ const styles = StyleSheet.create({
     width: 250,
     borderRadius: 15,
     color: 'white',
-    marginBottom: 10,
+    marginBottom: 15,
   },
 });
