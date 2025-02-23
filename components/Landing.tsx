@@ -1,14 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, ImageBackground , Image , TouchableHighlight, Pressable } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground , Image , Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useState } from 'react'
+import { useState } from 'react';
+import ModalTester from './modal';
 
-export default function Landing(){
-     
-    const [isLogin, setIsLogin] = useState(true);
+export default function Landing() {
     const navigation = useNavigation();
+    const [isModalVisible, setModalVisible] = useState(false);
 
-    return(
+    return (
         <>
         <View style={styles.container}>
             <ImageBackground source={require('../assets/BG.png')}
@@ -27,7 +27,9 @@ export default function Landing(){
                     marginTop: 30
                 }}/>
 
-                <Pressable style={styles.connect_button}>
+                <Pressable 
+                    style={styles.connect_button} 
+                    onPress={() => setModalVisible(true)}>
                     <View style={{padding: 5, flexDirection:'row', alignItems: 'center'}}>
                         <Image
                         source={require('../assets/metamask-icon.png')}
@@ -49,6 +51,9 @@ export default function Landing(){
                         <Text style={{color:'white', padding: 10}}> Create a Local Ledger </Text>
                     </View>
                 </Pressable>
+
+                {/* Modal Component */}
+                <ModalTester isModalVisible={isModalVisible} setModalVisible={setModalVisible} />
 
             </ImageBackground>
         </View>
