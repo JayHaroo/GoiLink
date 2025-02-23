@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, ImageBackground , TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground , Image , TouchableHighlight, Pressable } from 'react-native';
+import Svg from 'react-native-svg';
 
 export default function Landing(){
     return(
@@ -21,9 +22,19 @@ export default function Landing(){
                     marginTop: 30
                 }}/>
 
-                <TouchableHighlight style={styles.connect_button}>
-                    <Text style={{color:'orange', padding: 10}}> Connect Metamask Wallet </Text>
-                </TouchableHighlight>
+                <Pressable style={styles.connect_button}>
+                    <View style={{padding: 5, flexDirection:'row', alignItems: 'center'}}>
+                        <Image
+                        source={require('../assets/metamask-icon.png')}
+                        style={{
+                            resizeMode: 'contain',
+                            height: 50,
+                            width: 50,
+                        }}/>
+
+                        <Text style={{color:'orange'}}> Connect Metamask Wallet </Text>
+                    </View>
+                </Pressable>
 
             </ImageBackground>
         </View>
@@ -41,6 +52,6 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: 'orange',
         borderRadius: 15,
-        marginTop: 100
+        marginTop: 100,
     }
 });
