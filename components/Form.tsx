@@ -1,9 +1,41 @@
 import { View, Text, Pressable, TextInput, StyleSheet, Image } from "react-native";
 import { StatusBar } from 'expo-status-bar';
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useNavigation } from "@react-navigation/native";
+import RadioGroup, {RadioButtonProps} from 'react-native-radio-buttons-group';
 
 export default function Form() {
+
+    const radioButtons: RadioButtonProps[] = useMemo(() => ([
+        {
+            id: '1', 
+            label: 'Normal',
+            value: 'option1',
+            borderColor: 'white',
+            color: 'white',
+            labelStyle: { color: 'white' } // Ensures text is visible
+        },
+        {
+            id: '2',
+            label: 'Meet-Up',
+            value: 'option2',
+            borderColor: 'white',
+            color: 'white',
+            labelStyle: { color: 'white' } // Ensures text is visible
+        },
+        {
+            id: '3',
+            label: 'Proof',
+            value: 'option3',
+            borderColor: 'white',
+            color: 'white',
+            labelStyle: { color: 'white' } // Ensures text is visible
+        },
+    ]), []);
+    
+
+  const [selectedId, setSelectedId] = useState<string | undefined>();
+
   const [isLogin, setIsLogin] = useState(false); // Corrected state declaration
   const navigation = useNavigation();
 
@@ -47,6 +79,25 @@ export default function Form() {
             color: 'white',
             textAlignVertical: 'center'
          }}/>
+
+         <Text style={{color: 'white', padding: 10}}> Type of Agreement: </Text>
+         <RadioGroup 
+            radioButtons={radioButtons} 
+            onPress={setSelectedId}
+            selectedId={selectedId}
+            containerStyle={{ alignItems: 'flex-start', width: 250 }}
+        />
+
+        <Pressable
+         style={{ 
+            backgroundColor: '#30E650',
+            width: 100,
+            alignItems: 'center',
+            marginTop: 50,
+            borderRadius: 15
+         }}>
+            <Text style={{ padding: 10}}>Process!</Text>
+         </Pressable>
 
       </View>
       <StatusBar style='light'/>
