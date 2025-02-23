@@ -11,10 +11,19 @@ export async function deployContract(person1: string, person2: string, title: st
     const factory = new ethers.ContractFactory(CONTRACT_ABI, CONTRACT_BYTECODE, wallet);
 
     console.log("Deploying contract...");
-    const contract = await factory.deploy();
-    await contract.waitForDeployment();
 
+    // Estimate gas before deploying
+    const gasEstimate = await provider.estimateGas({
+      from: wallet.address,
+      data: CONTRACT_BYTECODE
+    });
+    console.log("Estimated Gas:", gasEstimate.toString());
+
+    const contract = await factory.deploy({ gasLimit: gasEstimate * BigInt(2) }); // Set high gas limit
+
+    await contract.waitForDeployment();
     const address = await contract.getAddress();
+
     console.log("Contract deployed at:", address);
     return address;
   } catch (error) {

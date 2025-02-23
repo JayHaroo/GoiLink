@@ -7,19 +7,36 @@ import { deployContract } from "./functions/confirm";
 
 export default function Form() {
     const navigation = useNavigation();
+    
+    // State variables for input fields
+    const [wallet1, setWallet1] = useState("");
+    const [wallet2, setWallet2] = useState("");
+    const [contractTitle, setContractTitle] = useState("");
+    const [contractDescription, setContractDescription] = useState("");
     const [selectedId, setSelectedId] = useState<string | undefined>('1');
-    const [isLogin, setIsLogin] = useState(false);
+    
+    // Agreement type mapping based on selectedId
+    const agreementTypes = {
+        '1': 'Normal',
+        '2': 'Meet-Up',
+        '3': 'Proof'
+    };
+    const agreementType = agreementTypes[selectedId || '1']; 
 
     const handleDeploy = async () => {
         try {
-            //const contractAddress = await deployContract(wallet1, wallet2, contractTitle, contractDescription, agreementType);
-            //alert(`Contract deployed at: ${contractAddress}`);
+            if (!wallet1 || !wallet2 || !contractTitle || !contractDescription) {
+                alert("Please fill in all fields!");
+                return;
+            }
+
+            const contractAddress = await deployContract(wallet1, wallet2, contractTitle, contractDescription, agreementType);
+            alert(`Contract deployed at: ${contractAddress}`);
         } catch (error) {
             alert("Error deploying contract!");
         }
     };
 
-    // Function to create a local contract
     const handleLocalContract = () => {
         const localHash = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
         console.log("Local Contract Hash:", localHash);
@@ -43,34 +60,27 @@ export default function Form() {
                     </Pressable>
                 </View>
 
-                <View style={{ borderColor: 'white', borderWidth: 1, width: 350, marginTop: 20 }} />
+                <View style={{ borderColor: 'white', borderWidth: 1, width: 350, marginTop: 20, marginBottom: 20 }} />
 
-                <Text style={{ color: 'white', fontSize: 20, marginTop: 10, marginBottom: 30 }}>
-                    Account Connected?: {isLogin.toString()}
-                </Text>
+                <TextInput style={styles.inputs} placeholder="Enter Wallet Address 1" placeholderTextColor={'white'} 
+                    value={wallet1} onChangeText={setWallet1} />
+                <TextInput style={styles.inputs} placeholder="Enter Wallet Address 2" placeholderTextColor={'white'} 
+                    value={wallet2} onChangeText={setWallet2} />
 
-                <TextInput style={styles.inputs} placeholder="Enter Wallet Address 1" placeholderTextColor={'white'} />
-                <TextInput style={styles.inputs} placeholder="Enter Wallet Address 2" placeholderTextColor={'white'} />
-
-                <TextInput style={styles.inputs} placeholder="Contract Title" placeholderTextColor={'white'} />
+                <TextInput style={styles.inputs} placeholder="Contract Title" placeholderTextColor={'white'} 
+                    value={contractTitle} onChangeText={setContractTitle} />
                 <TextInput placeholder="Contract Description" placeholderTextColor={'white'} multiline={true} numberOfLines={10}
-                    style={{
-                        borderWidth: 1, borderColor: 'white', width: 250, height: 200, maxHeight: 200,
-                        borderRadius: 15, color: 'white', textAlignVertical: 'center'
-                    }} />
+                    style={styles.textArea} value={contractDescription} onChangeText={setContractDescription} />
 
                 <Text style={{ color: 'white', padding: 10 }}> Type of Agreement: </Text>
                 <RadioGroup radioButtons={radioButtons} onPress={setSelectedId} selectedId={selectedId}
                     containerStyle={{ alignItems: 'flex-start', width: 250 }} />
 
-                {/* BUTTONS FOR CONTRACT CREATION */}
                 <View style={{ flexDirection: 'row', marginTop: 50, gap: 15 }}>
-                    {/* Deploy to Blockchain Button */}
                     <Pressable onPress={handleDeploy} style={styles.button}>
                         <Text style={styles.buttonText}>Process to blockchain</Text>
                     </Pressable>
 
-                    {/* Create Local Contract Button */}
                     <Pressable onPress={handleLocalContract} style={[styles.button, { backgroundColor: 'blue' }]}>
                         <Text style={styles.buttonText}>Process to local</Text>
                     </Pressable>
@@ -94,6 +104,19 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         color: 'white',
         marginBottom: 15,
+        paddingHorizontal: 10,
+    },
+    textArea: {
+        borderWidth: 1,
+        borderColor: 'white',
+        width: 250,
+        height: 200,
+        maxHeight: 200,
+        borderRadius: 15,
+        color: 'white',
+        textAlignVertical: 'top',
+        paddingHorizontal: 10,
+        paddingVertical: 10
     },
     button: {
         backgroundColor: 'green',
