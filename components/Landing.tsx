@@ -1,7 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, ImageBackground , Image , TouchableHighlight, Pressable } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Landing(){
+    const navigation = useNavigation();
+
     return(
         <>
         <View style={styles.container}>
@@ -35,7 +38,9 @@ export default function Landing(){
                     </View>
                 </Pressable>
 
-                <Pressable style={styles.local_button}>
+                <Pressable 
+                 style={styles.local_button}
+                 onPress={() => navigation.navigate('Form')}>
                     <View style={{padding: 5, flexDirection:'row', alignItems: 'center'}}>
                         <Text style={{fontSize: 35}}>🚀</Text>
                         <Text style={{color:'white', padding: 10}}> Create a Local Ledger </Text>
@@ -44,6 +49,7 @@ export default function Landing(){
 
             </ImageBackground>
         </View>
+        <StatusBar style='light'/>
         </>
     )
 }
