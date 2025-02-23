@@ -52,6 +52,15 @@ export default function Landing() {
                     </View>
                 </Pressable>
 
+                <Pressable 
+                 style={styles.local_button}
+                 onPress={() => navigation.navigate('LocalTransactions')}>
+                    <View style={{padding: 5, flexDirection:'row', alignItems: 'center'}}>
+                        <Text style={{fontSize: 35}}>🚀</Text>
+                        <Text style={{color:'white', padding: 10}}> Deployed Ledgers </Text>
+                    </View>
+                </Pressable>
+
                 {/* Modal Component */}
                 <ModalTester isModalVisible={isModalVisible} setModalVisible={setModalVisible} />
 

@@ -3,7 +3,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Landing from './components/Landing';
 import Form from './components/Form';
-
+import LocalTrans from './components/LocalTrans';
+import LocalTransactions from './components/LocalTransactions';
 // For managing the screens
 const Stack = createNativeStackNavigator();
 
@@ -15,6 +16,8 @@ function RootStack() {
       }}>
       <Stack.Screen name="Landing" component={Landing} />
       <Stack.Screen name="Form" component={Form} />
+      <Stack.Screen name="LocalTrans" component={LocalTrans} />
+      <Stack.Screen name="LocalTransactions" component={LocalTransactions} />
     </Stack.Navigator>
   );
 }

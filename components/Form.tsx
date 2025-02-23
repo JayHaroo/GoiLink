@@ -2,121 +2,108 @@ import { View, Text, Pressable, TextInput, StyleSheet, Image } from "react-nativ
 import { StatusBar } from 'expo-status-bar';
 import { useState, useMemo } from "react";
 import { useNavigation } from "@react-navigation/native";
-import RadioGroup, {RadioButtonProps} from 'react-native-radio-buttons-group';
+import RadioGroup, { RadioButtonProps } from 'react-native-radio-buttons-group';
+import { deployContract } from "./functions/confirm";
 
 export default function Form() {
+    const navigation = useNavigation();
+    const [selectedId, setSelectedId] = useState<string | undefined>('1');
+    const [isLogin, setIsLogin] = useState(false);
+
+    const handleDeploy = async () => {
+        try {
+            //const contractAddress = await deployContract(wallet1, wallet2, contractTitle, contractDescription, agreementType);
+            //alert(`Contract deployed at: ${contractAddress}`);
+        } catch (error) {
+            alert("Error deploying contract!");
+        }
+    };
+
+    // Function to create a local contract
+    const handleLocalContract = () => {
+        const localHash = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        console.log("Local Contract Hash:", localHash);
+        
+        navigation.navigate('LocalTrans', { contractHash: localHash });
+    };
 
     const radioButtons: RadioButtonProps[] = useMemo(() => ([
-        {
-            id: '1', 
-            label: 'Normal',
-            value: 'option1',
-            borderColor: 'white',
-            color: 'white',
-            labelStyle: { color: 'white' } // Ensures text is visible
-        },
-        {
-            id: '2',
-            label: 'Meet-Up',
-            value: 'option2',
-            borderColor: 'white',
-            color: 'white',
-            labelStyle: { color: 'white' } // Ensures text is visible
-        },
-        {
-            id: '3',
-            label: 'Proof',
-            value: 'option3',
-            borderColor: 'white',
-            color: 'white',
-            labelStyle: { color: 'white' } // Ensures text is visible
-        },
+        { id: '1', label: 'Normal', value: 'option1', borderColor: 'white', color: 'white', labelStyle: { color: 'white' } },
+        { id: '2', label: 'Meet-Up', value: 'option2', borderColor: 'white', color: 'white', labelStyle: { color: 'white' } },
+        { id: '3', label: 'Proof', value: 'option3', borderColor: 'white', color: 'white', labelStyle: { color: 'white' } },
     ]), []);
-    
 
-  const [selectedId, setSelectedId] = useState<string | undefined>('1');
+    return (
+        <>
+            <View style={styles.container}>
+                <View style={{ marginTop: 40, width: 350, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <Image source={require('../assets/logo.png')} style={{ resizeMode: 'contain', height: 20, width: 120 }} />
+                    <Pressable onPress={() => navigation.goBack()}>
+                        <Text style={{ color: 'white', fontSize: 20, textDecorationLine: 'underline' }}>Go back</Text>
+                    </Pressable>
+                </View>
 
-  const [isLogin, setIsLogin] = useState(false); // Corrected state declaration
-  const navigation = useNavigation();
+                <View style={{ borderColor: 'white', borderWidth: 1, width: 350, marginTop: 20 }} />
 
-  return (
-    <>
-      <View style={styles.container}>
-        <View style={{ marginTop: 40, width: 350, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Image 
-            source={require('../assets/logo.png')}
-            style={{
-              resizeMode: 'contain',
-              height: 20,
-              width: 120
-          }}/>
-          <Pressable onPress={() => navigation.goBack()}>
-            <Text style={{ color:'white', fontSize: 20, textDecorationLine:'underline' }}>
-              Go back
-            </Text>
-          </Pressable>
-        </View>
-            
-        <View style={{ borderColor: 'white', borderWidth: 1, width: 350, marginTop: 20 }} />
+                <Text style={{ color: 'white', fontSize: 20, marginTop: 10, marginBottom: 30 }}>
+                    Account Connected?: {isLogin.toString()}
+                </Text>
 
-        <Text style={{ color: 'white' , fontSize: 20 , marginTop: 10, marginBottom: 30}}> Account Connected?: {isLogin.toString()} </Text>
+                <TextInput style={styles.inputs} placeholder="Enter Wallet Address 1" placeholderTextColor={'white'} />
+                <TextInput style={styles.inputs} placeholder="Enter Wallet Address 2" placeholderTextColor={'white'} />
 
-        <TextInput style={styles.inputs} placeholder="Enter Wallet Address 1" placeholderTextColor={'white'}/>
-        <TextInput style={styles.inputs} placeholder="Enter Wallet Address 2" placeholderTextColor={'white'}/>
+                <TextInput style={styles.inputs} placeholder="Contract Title" placeholderTextColor={'white'} />
+                <TextInput placeholder="Contract Description" placeholderTextColor={'white'} multiline={true} numberOfLines={10}
+                    style={{
+                        borderWidth: 1, borderColor: 'white', width: 250, height: 200, maxHeight: 200,
+                        borderRadius: 15, color: 'white', textAlignVertical: 'center'
+                    }} />
 
-        <TextInput style={styles.inputs} placeholder="Contract Title" placeholderTextColor={'white'}/>
-        <TextInput 
-         placeholder="Contract Description" 
-         placeholderTextColor={'white'} 
-         multiline={true} numberOfLines={10}
-         style={{
-            borderWidth: 1,
-            borderColor: 'white',
-            width: 250,
-            height: 200,
-            maxHeight: 200,
-            borderRadius: 15,
-            color: 'white',
-            textAlignVertical: 'center'
-         }}/>
+                <Text style={{ color: 'white', padding: 10 }}> Type of Agreement: </Text>
+                <RadioGroup radioButtons={radioButtons} onPress={setSelectedId} selectedId={selectedId}
+                    containerStyle={{ alignItems: 'flex-start', width: 250 }} />
 
-         <Text style={{color: 'white', padding: 10}}> Type of Agreement: </Text>
-         <RadioGroup 
-            radioButtons={radioButtons} 
-            onPress={setSelectedId}
-            selectedId={selectedId}
-            containerStyle={{ alignItems: 'flex-start', width: 250 }}
-        />
+                {/* BUTTONS FOR CONTRACT CREATION */}
+                <View style={{ flexDirection: 'row', marginTop: 50, gap: 15 }}>
+                    {/* Deploy to Blockchain Button */}
+                    <Pressable onPress={handleDeploy} style={styles.button}>
+                        <Text style={styles.buttonText}>Process to blockchain</Text>
+                    </Pressable>
 
-        <Pressable
-         style={{ 
-            backgroundColor: 'green',
-            width: 100,
-            alignItems: 'center',
-            marginTop: 50,
-            borderRadius: 15
-         }}>
-            <Text style={{ padding: 10, color:'white'}}>Process!</Text>
-         </Pressable>
-
-      </View>
-      <StatusBar style='light'/>
-    </>
-  );
+                    {/* Create Local Contract Button */}
+                    <Pressable onPress={handleLocalContract} style={[styles.button, { backgroundColor: 'blue' }]}>
+                        <Text style={styles.buttonText}>Process to local</Text>
+                    </Pressable>
+                </View>
+            </View>
+            <StatusBar style='light' />
+        </>
+    );
 }
 
 const styles = StyleSheet.create({
-  container:{
-    flex: 1,
-    backgroundColor: '#000000',
-    alignItems: 'center'
-  },
-  inputs:{
-    borderWidth: 1,
-    borderColor: 'white',
-    width: 250,
-    borderRadius: 15,
-    color: 'white',
-    marginBottom: 15,
-  },
+    container: {
+        flex: 1,
+        backgroundColor: '#000000',
+        alignItems: 'center'
+    },
+    inputs: {
+        borderWidth: 1,
+        borderColor: 'white',
+        width: 250,
+        borderRadius: 15,
+        color: 'white',
+        marginBottom: 15,
+    },
+    button: {
+        backgroundColor: 'green',
+        width: 120,
+        alignItems: 'center',
+        borderRadius: 15
+    },
+    buttonText: {
+        padding: 10,
+        color: 'white',
+        textAlign: 'center'
+    }
 });
