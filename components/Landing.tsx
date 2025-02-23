@@ -35,6 +35,13 @@ export default function Landing(){
                     </View>
                 </Pressable>
 
+                <Pressable style={styles.local_button}>
+                    <View style={{padding: 5, flexDirection:'row', alignItems: 'center'}}>
+                        <Text style={{fontSize: 35}}>🚀</Text>
+                        <Text style={{color:'white', padding: 10}}> Create a Local Ledger </Text>
+                    </View>
+                </Pressable>
+
             </ImageBackground>
         </View>
         </>
@@ -52,5 +59,11 @@ const styles = StyleSheet.create({
         borderColor: 'orange',
         borderRadius: 15,
         marginTop: 100,
+    },
+    local_button: {
+        borderWidth: 2,
+        borderColor: 'white',
+        borderRadius: 15,
+        marginTop: 20,
     }
 });
