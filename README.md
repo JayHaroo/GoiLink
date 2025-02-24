@@ -2,7 +2,7 @@
 
 ## GoiLink is a smart contract management app that allows users to create, deploy, and manage blockchain-based agreements effortlessly. Whether you're finalizing deals, verifying transactions, or setting up local agreements, GoiLink ensures trust and security without intermediaries.
 
-![Get on Github](https://raw.githubusercontent.com/Kunzisoft/Github-badge/main/get-it-on-github.png)
+[![Get on Github](https://raw.githubusercontent.com/Kunzisoft/Github-badge/main/get-it-on-github.png)](https://github.com/JayHaroo/GoiLink/releases/tag/v1.0)
 
 ✨ Key Features:
 🔹 Blockchain-Powered Contracts – Deploy verifiable agreements on Ethereum effortlessly. (In Development)
