@@ -19,7 +19,9 @@
     "react-native": "0.76.7",
     "react-native-dotenv": "^3.4.11",
     "react-native-modal": "^13.0.1",
-    "react-native-radio-buttons-group": "^3.1.0"
+    "react-native-qrcode-svg": "^6.3.15",
+    "react-native-radio-buttons-group": "^3.1.0",
+    "walletconnect": "^0.7.28"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
