@@ -9,7 +9,7 @@ import ModalTester from "./modal"
 export default function Landing() {
   const navigation = useNavigation()
   const [isModalVisible, setModalVisible] = useState(false)
-  const [walletAddress, setWalletAddress] = useState(null)
+  const [walletAddress, setWalletAddress] = useState<string | null>(null)
   const [isConnecting, setIsConnecting] = useState(false)
 
   // Function to connect to Metamask wallet
@@ -42,7 +42,7 @@ export default function Landing() {
           "Connected",
           `Successfully connected to wallet: ${mockAddress.substring(0, 6)}...${mockAddress.substring(mockAddress.length - 4)}`,
         )
-      }, 2000)
+      }, 10000)
 
       // For a real implementation, you would use a library like ethers.js
       // or web3.js with React Native, or deep link to the Metamask app
