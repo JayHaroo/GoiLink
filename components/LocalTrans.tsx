@@ -8,7 +8,9 @@ export default function LocalTrans() {
     
     // Retrieve contract hash from Form.tsx
     const contractHash = route.params?.contractHash || "No hash provided";
+    const contractTitle = route.params?.contractTitle || "No title provided";
 
+    console.log("Received params:", route.params);
     const handleConfirm = async () => {
         try {
             // Get existing contracts from storage
@@ -16,12 +18,12 @@ export default function LocalTrans() {
             const contracts = storedContracts ? JSON.parse(storedContracts) : [];
 
             // Add new contract hash
-            contracts.push(contractHash);
+            contracts.push({ title: contractTitle, hash: contractHash });
 
             // Save updated contracts list
             await AsyncStorage.setItem("localContracts", JSON.stringify(contracts));
 
-            console.log("Local contract saved:", contractHash);
+            console.log("Local contract saved:", contractHash, contractTitle);
             alert("Local contract saved successfully!");
 
             navigation.goBack();
@@ -34,7 +36,9 @@ export default function LocalTrans() {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Local Contract Created</Text>
+            <Text style={styles.hash}>Title: {contractTitle}</Text>
             <Text style={styles.hash}>Hash: {contractHash}</Text>
+
 
             <View style={styles.buttonContainer}>
                 <Pressable onPress={handleConfirm} style={styles.button}>

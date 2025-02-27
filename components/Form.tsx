@@ -41,7 +41,7 @@ export default function Form() {
         const localHash = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
         console.log("Local Contract Hash:", localHash);
         
-        navigation.navigate('LocalTrans', { contractHash: localHash });
+        navigation.navigate('LocalTrans', { contractTitle: contractTitle ,contractHash: localHash});
     };
 
     const radioButtons: RadioButtonProps[] = useMemo(() => ([

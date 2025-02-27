@@ -38,12 +38,13 @@ export default function LocalTransactions() {
 
             {contracts.length > 0 ? (
                 <FlatList
-                    data={contracts}
-                    keyExtractor={(item, index) => index.toString()}
-                    renderItem={({ item }) => (
-                        <View style={styles.contractItem}>
-                            <Text style={styles.contractText}>{item}</Text>
-                        </View>
+                data={contracts}
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={({ item }) => (
+                    <View style={styles.contractItem}>
+                        <Text style={styles.contractText}>Title: {item.title}</Text>
+                        <Text style={styles.contractText}>Hash: {item.hash}</Text>
+                    </View>
                     )}
                 />
             ) : (
