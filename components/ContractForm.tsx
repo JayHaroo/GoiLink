@@ -14,7 +14,6 @@ import {
   Platform,
   ScrollView,
 } from "react-native"
-import { Plus, Save, ChevronDown, ChevronUp, ArrowLeft } from "lucide-react-native"
 import AgreementTypes from "./AgreementTypes"
 import PartyInput from "./PartyInput"
 import { ContractContext } from "../context/ContractContext"
@@ -96,9 +95,9 @@ const ContractForm: React.FC<{ onBack: () => void }> = ({ onBack }) => {
     <TouchableOpacity onPress={() => toggleSection(section)} style={styles.sectionHeader}>
       <Text style={[styles.sectionTitle, { color: colors.text }]}>{title}</Text>
       {expandedSections[section] ? (
-        <ChevronUp size={20} color={colors.text} />
+        <Text style={{color: 'white', fontSize: 30}}>^</Text>
       ) : (
-        <ChevronDown size={20} color={colors.text} />
+        <Text style={{color: 'white', fontSize: 30}}>.</Text>
       )}
     </TouchableOpacity>
   )
@@ -106,7 +105,7 @@ const ContractForm: React.FC<{ onBack: () => void }> = ({ onBack }) => {
   return (
       <ScrollView style={(styles.container, { backgroundColor: colors.background})}>
         <TouchableOpacity onPress={onBack} style={styles.backButton}>
-          <ArrowLeft size={24} color={colors.text} />
+          <Text style={{color: 'white', fontSize: 20, textDecorationLine: 'underline'}}>Back to menu</Text>
         </TouchableOpacity>
         <View style={[styles.formSection, { backgroundColor: colors.card }]}>
           {renderSectionHeader("Contract Details", "details")}
@@ -162,7 +161,7 @@ const ContractForm: React.FC<{ onBack: () => void }> = ({ onBack }) => {
             <>
               <View style={styles.sectionHeader}>
                 <TouchableOpacity style={[styles.addButton, { backgroundColor: colors.primary }]} onPress={addParty}>
-                  <Plus size={20} color={colors.background} />
+                  <Text style={{color: 'black', fontSize: 30}}>+</Text>
                 </TouchableOpacity>
               </View>
 
@@ -181,7 +180,6 @@ const ContractForm: React.FC<{ onBack: () => void }> = ({ onBack }) => {
         </View>
 
         <TouchableOpacity style={[styles.saveButton, { backgroundColor: colors.primary }]} onPress={handleSave}>
-          <Save size={20} color={colors.background} style={styles.saveIcon} />
           <Text style={[styles.saveButtonText, { color: colors.background }]}>Create Contract</Text>
         </TouchableOpacity>
       </ScrollView>
@@ -234,8 +232,8 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 18,
-    justifyContent: "center",
     alignItems: "center",
+    justifyContent: "center",
   },
   saveButton: {
     borderRadius: 8,

@@ -1,5 +1,4 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from "react-native"
-import { Trash2 } from "lucide-react-native"
 import { useTheme } from "../context/ThemeContext"
 
 const PartyInput = ({ index, party, updateParty, removeParty, isRemovable }) => {
@@ -11,7 +10,7 @@ const PartyInput = ({ index, party, updateParty, removeParty, isRemovable }) => 
         <Text style={[styles.title, { color: colors.text }]}>Party {index + 1}</Text>
         {isRemovable && (
           <TouchableOpacity style={styles.removeButton} onPress={() => removeParty(index)}>
-            <Trash2 size={18} color={colors.error} />
+            <Text style={{ color: colors.error }}>Remove</Text>
           </TouchableOpacity>
         )}
       </View>
